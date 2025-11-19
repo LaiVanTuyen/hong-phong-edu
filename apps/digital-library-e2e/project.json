@@ -1,0 +1,9 @@
+{
+  "name": "digital-library-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/digital-library-e2e/src",
+  "implicitDependencies": ["digital-library"],
+  "// targets": "to see all targets run: nx show project digital-library-e2e --web",
+  "targets": {}
+}
