@@ -1,0 +1,10 @@
+/* Collapse header styles */
+.page-wrapper {
+  transition: margin-top 0.3s ease, 
+              padding-top 0.3s ease !important;
+}
+
+.page-wrapper.header-collapsed {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}

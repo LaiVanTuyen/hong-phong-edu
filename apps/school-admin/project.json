@@ -1,0 +1,128 @@
+{
+  "name": "school-admin",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/school-admin/src",
+  "tags": ["scope:admin"],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/school-admin",
+        "browser": "apps/school-admin/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/school-admin/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/school-admin/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/school-admin/src/assets",
+            "output": "/assets/"
+          }
+        ],
+        "styles": [
+          "apps/school-admin/src/assets/css/bootstrap.min.css",
+          "apps/school-admin/src/assets/css/bootstrap-datetimepicker.min.css",
+          "apps/school-admin/src/assets/css/animate.css",
+          "apps/school-admin/src/assets/plugins/select2/css/select2.min.css",
+          "apps/school-admin/src/assets/plugins/daterangepicker/daterangepicker.css",
+          "apps/school-admin/src/assets/css/dataTables.bootstrap5.min.css",
+          "apps/school-admin/src/assets/plugins/tabler-icons/tabler-icons.min.css",
+          "apps/school-admin/src/assets/plugins/fontawesome/css/fontawesome.min.css",
+          "apps/school-admin/src/assets/plugins/fontawesome/css/all.min.css",
+          "apps/school-admin/src/assets/plugins/@simonwep/pickr/themes/nano.min.css",
+          "apps/school-admin/src/assets/css/style.css",
+          "apps/school-admin/src/styles.scss"
+        ],
+        "scripts": [
+          "apps/school-admin/src/assets/js/jquery-3.7.1.min.js",
+          "apps/school-admin/src/assets/js/jquery.slimscroll.min.js",
+          "apps/school-admin/src/assets/js/bootstrap.bundle.min.js",
+          "apps/school-admin/src/assets/js/moment.min.js",
+          "apps/school-admin/src/assets/plugins/daterangepicker/daterangepicker.js",
+          "apps/school-admin/src/assets/plugins/select2/js/select2.min.js",
+          "apps/school-admin/src/assets/js/feather.min.js",
+          "apps/school-admin/src/assets/plugins/@simonwep/pickr/pickr.es5.min.js",
+          "apps/school-admin/src/assets/js/jquery.dataTables.min.js",
+          "apps/school-admin/src/assets/js/dataTables.bootstrap5.min.js",
+          "apps/school-admin/src/assets/plugins/apexchart/apexcharts.min.js",
+          "apps/school-admin/src/assets/plugins/apexchart/chart-data.js",
+          "apps/school-admin/src/assets/plugins/chartjs/chart.min.js",
+          "apps/school-admin/src/assets/plugins/chartjs/chart-data.js",
+          "apps/school-admin/src/assets/js/theme-colorpicker.js",
+          "apps/school-admin/src/assets/js/theme-script.js",
+          "apps/school-admin/src/assets/js/script.js"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "school-admin:build:production"
+        },
+        "development": {
+          "buildTarget": "school-admin:build:development",
+          "port": 4200
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
+      "options": {
+        "buildTarget": "school-admin:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../coverage/apps/school-admin"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "school-admin:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/school-admin/browser",
+        "spa": true
+      }
+    }
+  }
+}

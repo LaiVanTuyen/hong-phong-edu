@@ -59,7 +59,8 @@
           "buildTarget": "digital-library:build:production"
         },
         "development": {
-          "buildTarget": "digital-library:build:development"
+          "buildTarget": "digital-library:build:development",
+          "port": 4201
         }
       },
       "defaultConfiguration": "development"
