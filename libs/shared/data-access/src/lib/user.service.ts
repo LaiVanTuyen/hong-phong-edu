@@ -109,4 +109,11 @@ export class UserService {
     // Mock: Return the first user as the currently logged-in user
     return of(this.users[0]);
   }
+
+  login(email: string, password: string): Observable<User | null> {
+    // Simulate API call delay
+    return of(this.users.find((u) => u.email === email) || null).pipe(
+      delay(1000)
+    );
+  }
 }

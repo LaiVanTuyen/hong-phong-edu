@@ -10,6 +10,7 @@ import { UserListComponent } from './pages/users/user-list.component';
 import { UserDetailsComponent } from './pages/users/user-details.component';
 import { UserEditComponent } from './pages/users/user-edit.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
+import { LoginComponent } from './pages/auth/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
 export const appRoutes: Route[] = [
@@ -64,6 +65,10 @@ export const appRoutes: Route[] = [
   {
     path: 'auth/reset-password',
     component: ResetPasswordComponent,
+  },
+  {
+    path: 'auth/login',
+    component: LoginComponent,
   },
   {
     path: 'profile',
