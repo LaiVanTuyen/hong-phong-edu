@@ -1,0 +1,128 @@
+<div class="content">
+    <div class="page-header">
+        <div class="add-item d-flex">
+            <div class="page-title">
+                <h4 class="fw-bold">Chi Tiết Người Dùng</h4>
+                <h6>Thông tin chi tiết người dùng</h6>
+            </div>
+        </div>
+        <div class="page-btn d-flex gap-2">
+            <a [routerLink]="['/users']" class="btn btn-secondary d-flex align-items-center">
+                <i class="ti ti-arrow-left me-1"></i>Quay Lại
+            </a>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="user">
+        <!-- Thông tin người dùng -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="card-title mb-0">Thông Tin Người Dùng</h5>
+                    <div class="d-flex gap-2">
+                        <a [routerLink]="['/users', user.id, 'edit']" class="btn btn-success btn-sm d-flex align-items-center">
+                            <i class="ti ti-edit me-1"></i>Chỉnh Sửa
+                        </a>
+                        <button type="button" class="btn btn-danger btn-sm d-flex align-items-center" (click)="showDeleteModal()">
+                            <i class="ti ti-trash me-1"></i>Xóa
+                        </button>
+                        <a [routerLink]="['/users']" class="btn btn-info btn-sm d-flex align-items-center ms-auto">
+                            <i class="ti ti-list me-1"></i>Danh Sách
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted">ID</label>
+                                <p class="mb-0">{{user.id}}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted">Họ và Tên</label>
+                                <p class="mb-0">{{user.full_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted">Email</label>
+                                <p class="mb-0">
+                                    <i class="ti ti-mail me-1"></i>
+                                    <a href="mailto:{{user.email}}">{{user.email}}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted">Ngày Tạo</label>
+                                <p class="mb-0">
+                                    <i class="ti ti-calendar me-1"></i>
+                                    {{user.created_at | date:'dd/MM/yyyy HH:mm'}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted">Cập Nhật Lần Cuối</label>
+                                <p class="mb-0">
+                                    <i class="ti ti-clock me-1"></i>
+                                    {{user.updated_at | date:'dd/MM/yyyy HH:mm'}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avatar & Stats -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="avatar avatar-xxl mb-3 mx-auto">
+                        <div class="avatar-title rounded-circle bg-primary text-white fs-1">
+                            {{user.full_name.charAt(0).toUpperCase()}}
+                        </div>
+                    </div>
+                    <h5 class="mb-1">{{user.full_name}}</h5>
+                    <p class="text-muted mb-3">{{user.email}}</p>
+                    
+                    <div class="d-flex justify-content-around text-center mt-4">
+                        <div>
+                            <h4 class="mb-0 text-primary">{{user.id}}</h4>
+                            <small class="text-muted">User ID</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xóa Người Dùng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa người dùng <strong>"{{ user?.full_name }}"</strong> không?</p>
+                    <p class="text-danger"><small>Hành động này không thể hoàn tác!</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

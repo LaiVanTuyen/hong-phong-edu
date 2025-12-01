@@ -5,45 +5,41 @@ import { FormsModule } from '@angular/forms';
 declare var $: any;
 declare var feather: any;
 
-interface Topic {
+interface ResourceType {
   id?: number;
   name: string;
   slug: string;
-  description: string;
   created_at?: Date;
-  status: boolean;
 }
 
 @Component({
-  selector: 'app-topics',
+  selector: 'app-resource-type',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './topics.component.html',
-  styleUrls: ['./topics.component.scss']
+  templateUrl: './resource-type.component.html',
+  styleUrls: ['./resource-type.component.scss']
 })
-export class TopicsComponent implements AfterViewInit, OnDestroy {
-  title = 'Topics';
+export class ResourceTypeComponent implements AfterViewInit, OnDestroy {
+  title = 'ResourceType';
   private dataTable: any;
   isHeaderCollapsed = false;
   private collapseInitialized = false;
 
   // Form properties
-  topicForm: Topic = {
+  resourceTypeForm: ResourceType = {
     name: '',
-    slug: '',
-    description: '',
-    status: true
+    slug: ''
   };
   isEditMode = false;
-  selectedTopicId?: number;
+  selectedResourceTypeId?: number;
   isSubmitting = false;
 
   // Sample data for testing
-  sampleTopics: Topic[] = [
-    { id: 1, name: 'Máy tính', slug: 'may-tinh', description: 'Thiết bị máy tính & phần cứng', status: true, created_at: new Date('2024-12-24') },
-    { id: 2, name: 'Tiếng Anh', slug: 'tieng-anh', description: 'Học tiếng Anh giao tiếp', status: true, created_at: new Date('2024-12-24') },
-    { id: 3, name: 'Toán học', slug: 'toan-hoc', description: 'Toán học phổ thông', status: true, created_at: new Date('2024-12-24') },
-    { id: 4, name: 'Lịch sử', slug: 'lich-su', description: 'Lịch sử Việt Nam & thế giới', status: true, created_at: new Date('2024-12-24') }
+  sampleResourceTypes: ResourceType[] = [
+    { id: 1, name: 'Video', slug: 'video', created_at: new Date('2024-12-24') },
+    { id: 2, name: 'PDF', slug: 'pdf', created_at: new Date('2024-12-24') },
+    { id: 3, name: 'Audio', slug: 'audio', created_at: new Date('2024-12-24') },
+    { id: 4, name: 'Link', slug: 'link', created_at: new Date('2024-12-24') }
   ];
 
   ngAfterViewInit(): void {
@@ -65,7 +61,7 @@ export class TopicsComponent implements AfterViewInit, OnDestroy {
         
         this.dataTable = tableElement.DataTable({
           columnDefs: [
-            { orderable: false, targets: [0, 6] } // checkbox + action column
+            { orderable: false, targets: [0, 4] } // checkbox + action column
           ],
           bFilter: true,
           sDom: 'lrtip',
@@ -83,7 +79,7 @@ export class TopicsComponent implements AfterViewInit, OnDestroy {
           }
         });
         // Bind custom search input
-        const $searchInput = $('#category-search');
+        const $searchInput = $('#resource-type-search');
         if ($searchInput.length) {
           $searchInput.on('keyup change', () => {
             this.dataTable.search($searchInput.val()).draw();
@@ -193,27 +189,25 @@ export class TopicsComponent implements AfterViewInit, OnDestroy {
   // Auto-generate slug when name changes
   onNameChange(): void {
     if (!this.isEditMode) {
-      this.topicForm.slug = this.vietnameseToSlug(this.topicForm.name);
+      this.resourceTypeForm.slug = this.vietnameseToSlug(this.resourceTypeForm.name);
     }
   }
 
   // Open add modal
   openAddModal(): void {
     this.isEditMode = false;
-    this.selectedTopicId = undefined;
-    this.topicForm = {
+    this.selectedResourceTypeId = undefined;
+    this.resourceTypeForm = {
       name: '',
-      slug: '',
-      description: '',
-      status: true
+      slug: ''
     };
   }
 
   // Open edit modal with data
-  openEditModal(topic: Topic): void {
+  openEditModal(resourceType: ResourceType): void {
     this.isEditMode = true;
-    this.selectedTopicId = topic.id;
-    this.topicForm = { ...topic };
+    this.selectedResourceTypeId = resourceType.id;
+    this.resourceTypeForm = { ...resourceType };
   }
 
   // Handle form submit
@@ -221,13 +215,13 @@ export class TopicsComponent implements AfterViewInit, OnDestroy {
     if (this.isSubmitting) return;
     
     // Validate
-    if (!this.topicForm.name.trim()) {
-      alert('Vui lòng nhập tên chủ đề');
+    if (!this.resourceTypeForm.name.trim()) {
+      alert('Vui lòng nhập tên loại tài nguyên');
       return;
     }
     
-    if (!this.topicForm.slug.trim()) {
-      this.topicForm.slug = this.vietnameseToSlug(this.topicForm.name);
+    if (!this.resourceTypeForm.slug.trim()) {
+      this.resourceTypeForm.slug = this.vietnameseToSlug(this.resourceTypeForm.name);
     }
 
     this.isSubmitting = true;
@@ -235,18 +229,18 @@ export class TopicsComponent implements AfterViewInit, OnDestroy {
     // TODO: Replace with actual API call
     setTimeout(() => {
       if (this.isEditMode) {
-        console.log('Updating topic:', this.selectedTopicId, this.topicForm);
-        // TODO: Call API to update topic
+        console.log('Updating resource type:', this.selectedResourceTypeId, this.resourceTypeForm);
+        // TODO: Call API to update resource type
       } else {
-        console.log('Creating topic:', this.topicForm);
-        // TODO: Call API to create topic
+        console.log('Creating resource type:', this.resourceTypeForm);
+        // TODO: Call API to create resource type
       }
       
       this.isSubmitting = false;
       
       // Close modal
-      $('#add-topic').modal('hide');
-      $('#edit-category').modal('hide');
+      $('#add-resource-type').modal('hide');
+      $('#edit-resource-type').modal('hide');
       
       // Refresh DataTable
       if (this.dataTable) {
@@ -256,16 +250,16 @@ export class TopicsComponent implements AfterViewInit, OnDestroy {
   }
 
   // Handle delete
-  handleDelete(topicId: number): void {
+  handleDelete(resourceTypeId: number): void {
     if (this.isSubmitting) return;
     
-    this.selectedTopicId = topicId;
+    this.selectedResourceTypeId = resourceTypeId;
     this.isSubmitting = true;
 
     // TODO: Replace with actual API call
     setTimeout(() => {
-      console.log('Deleting topic:', topicId);
-      // TODO: Call API to delete topic
+      console.log('Deleting resource type:', resourceTypeId);
+      // TODO: Call API to delete resource type
       
       this.isSubmitting = false;
       
@@ -279,24 +273,21 @@ export class TopicsComponent implements AfterViewInit, OnDestroy {
     }, 1000);
   }
 
-
   ngOnDestroy(): void {
-    // Unbind collapse header event with namespace
-    if (typeof $ !== 'undefined') {
-      $('#collapse-header').off('click.collapse');
-    }
-    
-    // Destroy DataTable instance properly
+    // Cleanup DataTable
     if (this.dataTable) {
       try {
-        this.dataTable.destroy(true); // true = remove from DOM completely
+        this.dataTable.destroy(true);
         this.dataTable = null;
-      } catch (e) {
-        console.warn('DataTable destroy error:', e);
+      } catch (error) {
+        console.error('Error destroying DataTable:', error);
       }
     }
+
+    // Unbind collapse event
+    $('#collapse-header').off('click.collapse');
     
-    // Reset collapse flag
+    // Reset flags
     this.collapseInitialized = false;
   }
 }

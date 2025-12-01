@@ -1,0 +1,27 @@
+// user-list styles
+
+#user-collapse-header {
+  position: relative;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+
+  // Orange background when active (clicking)
+  &:active {
+    background-color: #ff9f43 !important;
+    transform: scale(0.95);
+  }
+
+  // Orange background when collapsed (persistent)
+  &.collapsed {
+    background-color: #ff9f43 !important;
+
+    .collapse-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  // Icon rotation animation
+  .collapse-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+}

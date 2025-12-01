@@ -1,0 +1,98 @@
+<div class="content">
+    <div class="page-header">
+        <div class="add-item d-flex">
+            <div class="page-title">
+                <h4 class="fw-bold">{{ isEditMode ? 'Chỉnh Sửa Người Dùng' : 'Thêm Người Dùng Mới' }}</h4>
+                <h6>{{ isEditMode ? 'Cập nhật thông tin người dùng' : 'Tạo người dùng mới' }}</h6>
+            </div>
+        </div>
+        <div class="page-btn">
+            <a [routerLink]="['/users']" class="btn btn-secondary d-flex align-items-center">
+                <i class="ti ti-arrow-left me-1"></i>Quay Lại
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Thông Tin Người Dùng</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Họ và Tên <span class="text-danger">*</span></label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           formControlName="full_name"
+                                           [class.is-invalid]="isFieldInvalid('full_name')"
+                                           placeholder="Nhập họ và tên">
+                                    <div class="invalid-feedback" *ngIf="isFieldInvalid('full_name')">
+                                        {{ getErrorMessage('full_name') }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email <span class="text-danger">*</span></label>
+                                    <input type="email" 
+                                           class="form-control" 
+                                           formControlName="email"
+                                           [class.is-invalid]="isFieldInvalid('email')"
+                                           placeholder="Nhập email">
+                                    <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+                                        {{ getErrorMessage('email') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        Mật Khẩu 
+                                        <span class="text-danger" *ngIf="!isEditMode">*</span>
+                                        <span class="text-muted" *ngIf="isEditMode">(Để trống nếu không đổi)</span>
+                                    </label>
+                                    <input type="password" 
+                                           class="form-control" 
+                                           formControlName="password"
+                                           [class.is-invalid]="isFieldInvalid('password')"
+                                           placeholder="Nhập mật khẩu">
+                                    <div class="invalid-feedback" *ngIf="isFieldInvalid('password')">
+                                        {{ getErrorMessage('password') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" 
+                                    class="btn btn-secondary" 
+                                    (click)="onCancel()"
+                                    [disabled]="isSubmitting">
+                                <i class="ti ti-x me-1"></i>Hủy
+                            </button>
+                            <button type="submit" 
+                                    class="btn btn-primary" 
+                                    [disabled]="isSubmitting || userForm.invalid">
+                                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1"></span>
+                                <i *ngIf="!isSubmitting" class="ti ti-device-floppy me-1"></i>
+                                {{ isEditMode ? 'Cập Nhật' : 'Tạo Mới' }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -122,9 +122,9 @@ $(document).ready(function(){
 			ordering: true,
 			language: {
 				search: ' ',
-				searchPlaceholder: 'Search',
-				sLengthMenu: 'Row Per Page _MENU_ Entries',
-				info: '_START_ - _END_ of _TOTAL_ items',
+				searchPlaceholder: 'Tìm kiếm...',
+				sLengthMenu: 'Hiển thị _MENU_ dòng mỗi trang',
+				info: 'Hiển thị _START_ - _END_ trong tổng số _TOTAL_ mục',
 				paginate: {
 					next: ' <i class="fa fa-angle-right"></i>',
 					previous: '<i class="fa fa-angle-left"></i>'

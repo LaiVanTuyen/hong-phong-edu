@@ -1,0 +1,41 @@
+/* Collapse button styles */
+.collapse-toggle {
+	position: relative;
+	transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Orange background when active (clicking) */
+.collapse-toggle:active {
+	background-color: #ff9f43 !important;
+	transform: scale(0.95);
+}
+
+/* Orange background when collapsed (persistent) */
+.collapse-toggle.collapsed {
+	background-color: #ff9f43 !important;
+}
+
+/* Icon rotation animation */
+.collapse-icon {
+	display: inline-block;
+	transition: transform 0.3s ease;
+}
+
+.collapse-toggle.collapsed .collapse-icon {
+	transform: rotate(180deg);
+}
+
+/* DataTables custom styling */
+.dataTables_length label {
+	font-size: 12px;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-bottom: 0.5rem;
+}
+
+.dataTables_length select.form-select {
+	padding: 2px 6px;
+	font-size: 12px;
+}
